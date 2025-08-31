@@ -9,7 +9,7 @@ import Gallery from "./components/Gallery";
 import Relaunch from "./components/Relaunch";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
-import "./app.css";
+import "./App.css";
 
 function App() {
   return (
