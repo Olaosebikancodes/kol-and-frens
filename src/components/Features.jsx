@@ -61,13 +61,25 @@ export default function Features() {
           setIsVisible(true);
         }
       },
-      { threshold: 0.3 }
+      { 
+        threshold: 0.1, 
+        rootMargin: '50px'
+      }
     );
 
     const element = document.getElementById("features");
-    if (element) observer.observe(element);
+    if (element) {
+      observer.observe(element);
+    }
 
-    return () => observer.disconnect();
+    const fallbackTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, 1000);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallbackTimer);
+    };
   }, []);
 
   const features = [
