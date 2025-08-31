@@ -54,32 +54,32 @@ export default function Features() {
     }
   }, [isVisible]);
 
+  const formatNumber = (num) => {
+    if (num >= 1_000_000_000) return (num / 1_000_000_000).toFixed(1) + "B";
+    if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M";
+    if (num >= 1_000) return (num / 1_000).toFixed(1) + "K";
+    return num.toString();
+  };
+
   useEffect(() => {
+    if (window.innerWidth < 768) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
         }
       },
-      { 
-        threshold: 0.1, 
-        rootMargin: '50px'
-      }
+      { threshold: 0.1 }
     );
 
     const element = document.getElementById("features");
-    if (element) {
-      observer.observe(element);
-    }
+    if (element) observer.observe(element);
 
-    const fallbackTimer = setTimeout(() => {
-      setIsVisible(true);
-    }, 1000);
-
-    return () => {
-      observer.disconnect();
-      clearTimeout(fallbackTimer);
-    };
+    return () => observer.disconnect();
   }, []);
 
   const features = [
@@ -160,8 +160,9 @@ export default function Features() {
               <DollarSign className="w-8 h-8 text-orange-500" />
             </div>
             <div className="text-3xl md:text-4xl font-bold text-orange-600 mb-2">
-              {counters.supply.toLocaleString()}
+              {formatNumber(counters.supply)}
             </div>
+
             <div className="text-gray-600 font-medium">Total Supply</div>
           </div>
 
@@ -180,7 +181,7 @@ export default function Features() {
               <Droplets className="w-8 h-8 text-blue-500" />
             </div>
             <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">
-              ${counters.liquidity}B
+              ${formatNumber(counters.liquidity * 1_000_000_000)}
             </div>
             <div className="text-gray-600 font-medium">Liquidity</div>
           </div>
@@ -190,7 +191,7 @@ export default function Features() {
               <UserCheck className="w-8 h-8 text-green-500" />
             </div>
             <div className="text-3xl md:text-4xl font-bold text-green-600 mb-2">
-              {counters.holders}
+              {formatNumber(counters.holders)}
             </div>
             <div className="text-gray-600 font-medium">Holders</div>
           </div>

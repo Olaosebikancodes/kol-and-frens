@@ -14,6 +14,15 @@ import {
   Mail,
   AlertTriangle,
   ArrowDown,
+  Sparkles,
+  AlertOctagon,
+  ShoppingCart,
+  ShieldCheck,
+  PieChart,
+  Pickaxe,
+  Ghost,
+  Moon,
+  Skull,
 } from "lucide-react";
 
 export default function FAQ() {
@@ -78,6 +87,66 @@ export default function FAQ() {
       answer:
         "Join our community of fellow reformed crypto degenerates! We have a Discord where we share our favorite trading disasters and a Telegram where we pretend to understand market psychology. Or email us - we actually read those... sometimes.",
       icon: <MessageCircle className="w-8 h-8 text-pink-500" />,
+    },
+    {
+      question: "What is this coin actually used for?",
+      answer:
+        "Absolutely nothing… but also everything. Mostly to flex on your broke cousin.",
+      icon: <Sparkles className="w-8 h-8 text-yellow-500" />,
+    },
+    {
+      question: "Is this financial advice?",
+      answer:
+        "We put a dog in space on the homepage. Does that look like financial advice?",
+      icon: <AlertOctagon className="w-8 h-8 text-red-500" />,
+    },
+    {
+      question: "Why should I buy this coin?",
+      answer:
+        "Because your ex is watching—and nothing says “I’m thriving” like a questionable crypto investment.",
+      icon: <ShoppingCart className="w-8 h-8 text-green-500" />,
+    },
+    {
+      question: "Will this coin make me rich?",
+      answer:
+        "Maybe. Maybe not. Worst case, you get a cooler Discord nickname.",
+      icon: <TrendingUp className="w-8 h-8 text-blue-500" />,
+    },
+    {
+      question: "Is this coin secure?",
+      answer:
+        "Safer than confessing your crush. (Translation: we try our best, please use a wallet.)",
+      icon: <ShieldCheck className="w-8 h-8 text-emerald-500" />,
+    },
+    {
+      question: "What’s the tokenomics?",
+      answer:
+        "We mint responsibly—like your government with inflation, but with nicer graphics.",
+      icon: <PieChart className="w-8 h-8 text-purple-500" />,
+    },
+    {
+      question: "Can I mine this coin?",
+      answer:
+        "No mining—just pure manifestation. Stare at your wallet and believe.",
+      icon: <Pickaxe className="w-8 h-8 text-gray-700" />,
+    },
+    {
+      question: "Who’s behind this project?",
+      answer:
+        "A shadowy cabal of internet degenerates with Wi-Fi and too much free time.",
+      icon: <Ghost className="w-8 h-8 text-indigo-500" />,
+    },
+    {
+      question: "Wen moon?",
+      answer:
+        "As soon as a billionaire tweets something vaguely related. Hold tight, astronaut.",
+      icon: <Moon className="w-8 h-8 text-pink-500" />,
+    },
+    {
+      question: "What if the coin crashes?",
+      answer:
+        "Easy—we rebrand as an ‘exclusive underground project’ and call it art.",
+      icon: <Skull className="w-8 h-8 text-gray-500" />,
     },
   ];
 

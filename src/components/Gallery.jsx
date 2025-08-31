@@ -253,11 +253,14 @@ const BackgroundDecorations = () => (
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [activeFilter, setActiveFilter] = useState("all");
+  const [showAll, setShowAll] = useState(false);
 
   const filteredMemes =
     activeFilter === "all"
       ? MEMES_DATA
       : MEMES_DATA.filter((meme) => meme.category === activeFilter);
+
+  const displayedMemes = showAll ? filteredMemes : filteredMemes.slice(0, 6);
 
   const stats = {
     total: MEMES_DATA.length,
@@ -266,9 +269,9 @@ export default function Gallery() {
     featured: MEMES_DATA.filter((m) => m.featured).length,
   };
 
-
   const handleFilterChange = (filterId) => {
     setActiveFilter(filterId);
+    setShowAll(false); 
   };
 
   const handleImageClick = (meme) => {
@@ -312,7 +315,7 @@ export default function Gallery() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
-          {filteredMemes.map((meme, index) => (
+          {displayedMemes.map((meme, index) => (
             <GalleryItem
               key={meme.id}
               meme={meme}
@@ -321,6 +324,28 @@ export default function Gallery() {
             />
           ))}
         </div>
+
+        {filteredMemes.length > 6 && (
+          <div className="text-center mb-12">
+            {!showAll ? (
+              <button
+                onClick={() => setShowAll(true)}
+                className="bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto"
+              >
+                <Theater className="w-5 h-5" />
+                View More Memes ({filteredMemes.length - 6} remaining)
+              </button>
+            ) : (
+              <button
+                onClick={() => setShowAll(false)}
+                className="bg-gradient-to-r from-gray-500 to-gray-600 text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto"
+              >
+                <Theater className="w-5 h-5" />
+                View Less
+              </button>
+            )}
+          </div>
+        )}
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
           <StatsCard
