@@ -7,7 +7,7 @@ export default function Relaunch() {
   if (!isVisible) return null;
 
   return (
-    <div className="bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 p-6 md:p-8 rounded-r-2xl shadow-lg relative overflow-hidden">
+    <section id="relaunch" className="bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 p-6 md:p-8 rounded-r-2xl shadow-lg relative overflow-hidden">
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-4 right-4 text-6xl text-red-400">🚀</div>
         <div className="absolute bottom-4 left-4 text-4xl text-orange-400">
@@ -175,6 +175,6 @@ export default function Relaunch() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

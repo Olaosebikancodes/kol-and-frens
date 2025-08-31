@@ -143,7 +143,7 @@ export default function Features() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
-          <div className="bg-white p-6 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+          <div className="bg-white p-6 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 w-full h-40 flex flex-col justify-center px-1">
             <div className="flex justify-center mb-2">
               <DollarSign className="w-8 h-8 text-orange-500" />
             </div>
@@ -153,7 +153,7 @@ export default function Features() {
             <div className="text-gray-600 font-medium">Total Supply</div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+          <div className="bg-white p-6 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 w-full h-40 flex flex-col justify-center">
             <div className="flex justify-center mb-2">
               <Flame className="w-8 h-8 text-red-500" />
             </div>
@@ -163,7 +163,7 @@ export default function Features() {
             <div className="text-gray-600 font-medium">Burned Forever</div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+          <div className="bg-white p-6 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 w-full h-40 flex flex-col justify-center">
             <div className="flex justify-center mb-2">
               <Droplets className="w-8 h-8 text-blue-500" />
             </div>
@@ -173,7 +173,7 @@ export default function Features() {
             <div className="text-gray-600 font-medium">Liquidity</div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+          <div className="bg-white p-6 rounded-2xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300 w-full h-40 flex flex-col justify-center">
             <div className="flex justify-center mb-2">
               <UserCheck className="w-8 h-8 text-green-500" />
             </div>

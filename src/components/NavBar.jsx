@@ -6,7 +6,6 @@ export default function Navigation () {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
-
   const navItems = [
     { id: "home", label: "Home", href: "#home" },
     { id: "about", label: "About", href: "#about" },
@@ -17,13 +16,11 @@ export default function Navigation () {
     { id: "faq", label: "FAQ", href: "#faq" },
   ];
 
-
   useEffect(() => {
     const handleScroll = () => {
       // Handle navbar background blur effect
       setIsScrolled(window.scrollY > 50);
       
-
       const sections = navItems.map(item => ({
         id: item.id,
         element: document.querySelector(item.href)
@@ -31,9 +28,8 @@ export default function Navigation () {
 
       if (sections.length === 0) return;
 
-      const scrollPosition = window.scrollY + 150; 
-      
-      let currentSection = "home"; 
+      const scrollPosition = window.scrollY + 100;
+      let currentSection = "home";
       
       for (let i = 0; i < sections.length; i++) {
         const section = sections[i];
@@ -41,33 +37,32 @@ export default function Navigation () {
         const elementTop = rect.top + window.scrollY;
         const elementBottom = elementTop + rect.height;
 
+        // Check if section is currently in view
+        if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+          currentSection = section.id;
+          break;
+        }
+        
+        // If we're past this section, it could be the current one
         if (scrollPosition >= elementTop) {
           currentSection = section.id;
         }
-
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
-          currentSection = sections[sections.length - 1].id;
-        }
+      }
+      
+      // Handle bottom of page
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+        currentSection = sections[sections.length - 1].id;
       }
       
       setActiveSection(currentSection);
     };
 
-    let timeoutId;
-    const throttledHandleScroll = () => {
-      if (timeoutId) return;
-      timeoutId = setTimeout(() => {
-        handleScroll();
-        timeoutId = null;
-      }, 10);
-    };
-
+    // Remove throttling for more responsive updates
     handleScroll();
     
-    window.addEventListener("scroll", throttledHandleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
-      window.removeEventListener("scroll", throttledHandleScroll);
-      if (timeoutId) clearTimeout(timeoutId);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -92,12 +87,13 @@ export default function Navigation () {
       }
     `}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <div className="flex items-center space-x-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo Section - Responsive */}
+          <div className="flex items-center space-x-2 min-w-0">
             <div
               className={`
-              w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-2xl md:text-3xl
+              w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0
               ${
                 isScrolled
                   ? "bg-gradient-to-br from-orange-500 to-yellow-500"
@@ -105,12 +101,12 @@ export default function Navigation () {
               }
             `}
             >
-              <Theater className="text-white"/>
+              <Theater className="text-white w-4 h-4 md:w-5 md:h-5"/>
             </div>
-            <div>
+            <div className="min-w-0">
               <h1
                 className={`
-                text-xl md:text-2xl font-bold transition-colors duration-300
+                text-lg md:text-xl font-bold transition-colors duration-300 truncate
                 ${isScrolled ? "text-gray-800" : "text-white"}
               `}
               >
@@ -118,7 +114,7 @@ export default function Navigation () {
               </h1>
               <p
                 className={`
-                text-xs md:text-sm transition-colors duration-300
+                text-xs transition-colors duration-300 truncate
                 ${isScrolled ? "text-gray-600" : "text-white/80"}
               `}
               >
@@ -127,13 +123,14 @@ export default function Navigation () {
             </div>
           </div>
 
-          <div className="hidden lg:flex items-center space-x-8">
+          {/* Desktop Navigation - Responsive spacing */}
+          <div className="hidden lg:flex items-center space-x-4 xl:space-x-6">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.href, item.id)}
                 className={`
-                  px-4 py-2 rounded-full font-medium transition-all duration-300 relative
+                  px-3 py-2 rounded-full font-medium transition-all duration-300 relative text-sm whitespace-nowrap
                   ${
                     activeSection === item.id
                       ? "text-orange-600 bg-orange-100"
@@ -151,10 +148,11 @@ export default function Navigation () {
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center space-x-4">
+          {/* Desktop Action Buttons - Responsive */}
+          <div className="hidden lg:flex items-center space-x-3 flex-shrink-0">
             <button
               className={`
-              px-6 py-2 rounded-full font-bold flex items-center gap-2 transition-all duration-300 transform hover:scale-105
+              px-4 py-2 rounded-full font-semibold flex items-center gap-2 transition-all duration-300 transform hover:scale-105 text-sm whitespace-nowrap
               ${
                 isScrolled
                   ? "border-2 border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white"
@@ -163,17 +161,18 @@ export default function Navigation () {
             `}
             >
               View Chart
-              <TrendingUp className="w-5 h-5" />
+              <TrendingUp className="w-4 h-4" />
             </button>
-            <button className="bg-white text-orange-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2">
-              Buy $KOL <Rocket className="w-5 h-5 text-purple-500" />
+            <button className="bg-white text-orange-600 px-6 py-2 rounded-full font-bold hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2 text-sm whitespace-nowrap">
+              Buy $KOL <Rocket className="w-4 h-4 text-purple-500" />
             </button>
           </div>
 
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className={`
-              lg:hidden p-2 rounded-full transition-colors duration-300
+              lg:hidden p-2 rounded-full transition-colors duration-300 flex-shrink-0
               ${
                 isScrolled
                   ? "text-gray-700 hover:bg-gray-100"
@@ -181,10 +180,11 @@ export default function Navigation () {
               }
             `}
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
+        {/* Mobile Menu */}
         <div
           className={`
           lg:hidden overflow-hidden transition-all duration-300 ease-in-out
@@ -212,9 +212,9 @@ export default function Navigation () {
               <button className="w-full border-2 border-orange-500 text-orange-600 py-3 rounded-full font-bold hover:bg-orange-500 hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
                 View Chart <TrendingUp className="w-4 h-4" />
               </button>
-              <button className="w-full bg-white text-orange-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2">
+              <button className="w-full bg-white text-orange-600 px-6 py-3 rounded-full font-bold hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center gap-2">
                 Buy $KOL
-                <Rocket className="w-5 h-5 text-purple-500" />
+                <Rocket className="w-4 h-4 text-purple-500" />
               </button>
             </div>
           </div>
